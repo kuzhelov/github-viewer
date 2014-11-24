@@ -1,0 +1,15 @@
+{
+  "name": "github_viewer",
+  "version": "0.1.0",
+  "description": "GitHub viewer based on Angular.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "kuzhelov",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.10.3"
+  }
+}

@@ -1,0 +1,14 @@
+.user-info td {
+	padding-right: 10px;
+}
+
+.avatar-image {
+	float: left; 
+	margin: 0 10px 10px 0;
+	height: 100px;
+	width: 100px;
+}
+
+.warning {
+	color: red;
+}

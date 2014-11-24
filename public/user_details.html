@@ -1,0 +1,37 @@
+<div>
+    <img class="avatar-image" ng-src="{{ user.image_url }}" />
+    <p><b>Username:</b> {{ user.name }}</p>
+    <p><b>Location:</b> {{ user.location }}</p>
+
+    <div class="projects" style="clear: both;">
+        <h2>Projects</h2>
+
+        <div class="sort-order" style="margin: 0 0 10px;">
+            <label for="repository-sort-order">Sort order:</label>
+            <select id="repository-sort-order" ng-model="repository_sort_order">
+                <option value="+name">Name</option>
+                <option value="-stars">Stars</option>
+                <option value="+language">Language</option>
+            </select>
+        </div>
+
+        <table>
+            <thead style="font-weight: bold;">
+                <tr>
+                    <td>Name</td>
+                    <td>Stars</td>
+                    <td>Language</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="repository in user.repositories | orderBy:repository_sort_order">
+                    <td>{{ repository.name }}</td>
+                    <td>{{ repository.stars }}</td>
+                    <td>{{ repository.language }}</td>
+                    <td>{{ repository.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
