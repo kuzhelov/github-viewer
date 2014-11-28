@@ -1,4 +1,8 @@
-.user-info td {
+.user-repos {
+	clear: both;
+}
+
+.user-repos td {
 	padding-right: 10px;
 }
 

@@ -1,29 +1,47 @@
 (function() {
 
-    var githubViewer = angular.module("githubViewer");
-
-    githubViewer.controller("user", function($scope, $http, githubService) {
-
-        $scope.search_user = function(username) {
-
-            $scope.user = undefined;
+    angular.module("githubViewer")
+        
+        .controller("UserInputController", function($location) {
             
-            githubService.getUser(username)
-            .then(function(user) {
-                $scope.user = user;
-                $scope.requests_remain = user.requests_remain;
+                this.showUser = function(username) {
+                    $location.path('/user/' + username);
+                };
                 
-                return githubService.getRepositoriesOf(user);
             })
-            .then(function(repositories) {
-                $scope.user.repositories = repositories;
-                $scope.requests_remain = repositories.requests_remain;
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-        };
 
-        $scope.repository_sort_order = "+name";
-    });
+        .controller("UserController", function($scope, $http, $routeParams, githubService) {
+    
+            this.init = function() {
+                
+                var username = $routeParams.username;
+                $scope.user = undefined;
+            
+                githubService.getUser(username)
+                .then(function(user) {
+                    $scope.user = user;
+                    $scope.requestsRemain = user.requests_remain;
+                    
+                    return githubService.getRepositoriesOf(user);
+                })
+                .then(function(repositories) {
+                    $scope.user.repositories = repositories;
+                    $scope.requestsRemain = repositories.requests_remain;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            };
+            
+            this.init();
+        })
+        
+        .controller('UserReposController', function($scope) {
+            
+            this.init = function() {
+                $scope.repositorySortOrder = "+name";
+            };
+            
+            this.init();
+        });
 }());
