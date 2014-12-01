@@ -2,15 +2,14 @@
 
     angular.module("githubViewer")
         
-        .controller("UserInputController", function($location) {
+        .controller("MainController", function($scope, $location) {
             
-                this.showUser = function(username) {
-                    $location.path('/user/' + username);
-                };
-                
-            })
-
-        .controller("UserController", function($scope, $http, $routeParams, githubService) {
+            $scope.showUser = function(username) {
+                $location.path('/user/' + username);
+            };
+        })
+        
+        .controller("UserController", function($scope, $http, $routeParams, $location, githubService) {
     
             this.init = function() {
                 
@@ -36,10 +35,64 @@
             this.init();
         })
         
-        .controller('UserReposController', function($scope) {
+        .controller('UserReposController', function($scope, $location) {
             
             this.init = function() {
                 $scope.repositorySortOrder = "+name";
+            };
+            
+            this.showContributorsOf = function(repository) {
+                var contributorsPath = $location.path() + '/' + repository.name + '/contributors';
+                $location.path(contributorsPath);
+            };
+            
+            this.showStargazersOf = function(repository) {
+                var stargazersPath = $location.path() + '/' + repository.name + '/stargazers';
+                $location.path(stargazersPath);
+            };
+            
+            this.init();
+        })
+        
+        .controller('RepoContributorsController', function($scope, $routeParams, githubService) {
+            
+            this.init = function() {
+                
+                $scope.userName = $routeParams.username;
+                $scope.repoName = $routeParams.reponame;
+                
+                githubService.getRepository( $scope.userName, $scope.repoName)
+                    .then(function(repository) {
+                        return githubService.getContributorsOf(repository);
+                    })
+                    .then(function(contributors) {
+                        $scope.contributors = contributors;
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            };
+            
+            this.init();
+        })
+        
+        .controller('RepoStargazersController', function($scope, $routeParams, githubService) {
+            
+            this.init = function() {
+                
+                $scope.userName = $routeParams.username;
+                $scope.repoName = $routeParams.reponame;
+                
+                githubService.getRepository($scope.userName, $scope.repoName)
+                    .then(function(repository) {
+                        return githubService.getStargazersOf(repository);
+                    })
+                    .then(function(stargazers) {
+                        $scope.stargazers = stargazers;
+                    })
+                    .catch(function(error) {
+                        console.log(error); 
+                    });
             };
             
             this.init();

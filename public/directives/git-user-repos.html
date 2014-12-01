@@ -1,4 +1,4 @@
- <div ng-controller="UserReposController">
+ <div ng-controller="UserReposController as userReposCtrl">
      
     <h2>Projects</h2>
     <div class="sort-order" style="margin: 0 0 10px;">
@@ -20,8 +20,8 @@
         </thead>
         <tbody>
             <tr ng-repeat="repository in user.repositories | orderBy:repositorySortOrder">
-                <td>{{ repository.name }}</td>
-                <td>{{ repository.stars }}</td>
+                <td><a href ng-click="userReposCtrl.showContributorsOf(repository)">{{ repository.name }}</a></td>
+                <td><a href ng-click="userReposCtrl.showStargazersOf(repository)">{{ repository.stars }}</a></td>
                 <td>{{ repository.language }}</td>
                 <td>{{ repository.description}}</td>
             </tr>

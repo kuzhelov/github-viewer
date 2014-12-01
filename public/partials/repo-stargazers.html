@@ -1,0 +1,12 @@
+<div ng-controller="RepoStargazersController">
+    
+    <div git-requests-remain class="warning"></div>
+    
+    <h2>Stargazers of {{ repoName }} ({{ userName }})</h2>
+    
+    <div ng-repeat="stargazer in stargazers" style="display: inline-block; margin: 10px;">
+        <img ng-src="{{ stargazer.image_url }}" style="height: 80px; width: 80px;">
+        <div><a href ng-click="showUser(stargazer.name)">{{ stargazer.name }}</a></div>
+    </div>
+    
+</div>

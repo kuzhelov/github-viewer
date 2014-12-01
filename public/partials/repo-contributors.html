@@ -1,0 +1,12 @@
+<div ng-controller="RepoContributorsController">
+    
+    <div git-requests-remain class="warning"></div>
+    
+    <h2>Contributors of {{ repoName }} ({{ userName }})</h2>
+    
+    <div ng-repeat="contributor in contributors" style="display: inline-block; margin: 10px;">
+        <img ng-src="{{ contributor.image_url }}" style="height: 80px; width: 80px;">
+        <div><a href ng-click="showUser(contributor.name)">{{ contributor.name }}</a></div>
+    </div>
+    
+</div>
